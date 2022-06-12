@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BackToTop from "../elements/BackToTop";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -19,7 +19,10 @@ const Layout = ({ children }) => {
     return (
         <>
             <Head>
-                <title>Monst - NextJs Tailwind CSS Landing Page</title>
+                <title>Famco - Organic Fortilizer Manufacturer</title>
+                <link rel="shortcut icon" href="/favicon.png" />
+                <link rel="icon" sizes="16x16" href="/favicon-16x16.png" />
+                <link rel="icon" sizes="32x32" href="/favicon-32x32.png" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link
                     rel="preconnect"
@@ -39,6 +42,7 @@ const Layout = ({ children }) => {
                 <script>new WOW().init();</script>
             </Head>
             <div className="main font-body text-body">
+                { console.log('layout here') }
                 <Header handleHidden={handleHidden} />
                 <MobileMenu
                     hiddenClass={hiddenClass}

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 SwiperCore.use([Navigation]);
 
-const Slider1 = () => {
+const Slider1 = ({ products }) => {
     return (
         <>
             <Swiper
@@ -17,94 +17,33 @@ const Slider1 = () => {
                 }}
                 className="custom-class"
             >
-                <SwiperSlide>
-                    <div className="px-3 pb-5">
-                        <div className="card-slider group">
-                            <img className="rounded-xl" src="/assets/imgs/placeholders/img-2.jpg" alt="Monst" />
-                            <div className="flex justify-between items-end">
-                                <div>
-                                    <h1 className="mt-5 text-xl font-semibold group-hover:text-blue-500">
+                { (Array.isArray(products)) ? (products.slice(0, 4).map(function(item,index) {
+
+                return (
+                    <SwiperSlide>
+                        <div className="px-3 pb-5">
+                            <div className="card-slider group">
+                                <img className="rounded-xl" src={`/assets/imgs/placeholders/${ item.image }`} alt="Monst" />
+                                <div className="flex justify-between items-end">
+                                    <div>
+                                        <h1 className="mt-5 text-xl font-semibold group-hover:text-blue-500">
+                                            <Link href="/services">
+                                                <a>{ item.title }</a>
+                                            </Link>
+                                        </h1>
+                                        <p className="mt-2 text-xs text-gray-500">{ item.desc }</p>
+                                    </div>
+                                    <div>
                                         <Link href="/services">
-                                            <a>fertilizer1</a>
+                                            <a className="tracking-wide hover-up-2 mr-2 inline-block px-4 py-3 text-xs text-blue-500 font-semibold leading-none border border-blue-200 hover:border-blue-500 hover:text-white hover:bg-blue-500 rounded">View Details</a>
                                         </Link>
-                                    </h1>
-                                    <p className="mt-2 text-xs text-gray-500">Harvard university</p>
-                                </div>
-                                <div>
-                                    <Link href="/services">
-                                        <a className="tracking-wide hover-up-2 mr-2 inline-block px-4 py-3 text-xs text-blue-500 font-semibold leading-none border border-blue-200 hover:border-blue-500 hover:text-white hover:bg-blue-500 rounded">View Details</a>
-                                    </Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="px-3 pb-5">
-                        <div className="card-slider group">
-                            <img className="rounded-xl" src="/assets/imgs/placeholders/img-3.jpg" alt="Monst" />
-                            <div className="flex justify-between items-end">
-                                <div>
-                                    <h1 className="mt-5 text-xl font-semibold group-hover:text-blue-500">
-                                        <Link href="/services">
-                                            <a>fertilizer2</a>
-                                        </Link>
-                                    </h1>
-                                    <p className="mt-2 text-xs text-gray-500">Cocacola., Co</p>
-                                </div>
-                                <div>
-                                    <Link href="/services">
-                                        <a className="tracking-wide hover-up-2 mr-2 inline-block px-4 py-3 text-xs text-blue-500 font-semibold leading-none border border-blue-200 hover:border-blue-500 hover:text-white hover:bg-blue-500 rounded">View Details</a>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="px-3 pb-5">
-                        <div className="card-slider group">
-                            <img className="rounded-xl" src="/assets/imgs/placeholders/img-4.jpg" alt="Monst" />
-                            <div className="flex justify-between items-end">
-                                <div>
-                                    <h1 className="mt-5 text-xl font-semibold group-hover:text-blue-500">
-                                        <Link href="/services">
-                                            <a>fertilizer3</a>
-                                        </Link>
-                                    </h1>
-                                    <p className="mt-2 text-xs text-gray-500">Oxford university</p>
-                                </div>
-                                <div>
-                                    <Link href="/services">
-                                        <a className="tracking-wide hover-up-2 mr-2 inline-block px-4 py-3 text-xs text-blue-500 font-semibold leading-none border border-blue-200 hover:border-blue-500 hover:text-white hover:bg-blue-500 rounded">View Details</a>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="px-3 pb-5">
-                        <div className="card-slider group">
-                            <img className="rounded-xl" src="/assets/imgs/placeholders/img-5.jpg" alt="Monst" />
-                            <div className="flex justify-between items-end">
-                                <div>
-                                    <h1 className="mt-5 text-xl font-semibold group-hover:text-blue-500">
-                                        <Link href="/services">
-                                            <a>fertilizer4</a>
-                                        </Link>
-                                    </h1>
-                                    <p className="mt-2 text-xs text-gray-500">Alibaba Co</p>
-                                </div>
-                                <div>
-                                    <Link href="/services">
-                                        <a className="tracking-wide hover-up-2 mr-2 inline-block px-4 py-3 text-xs text-blue-500 font-semibold leading-none border border-blue-200 hover:border-blue-500 hover:text-white hover:bg-blue-500 rounded">View Details</a>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </SwiperSlide>
+                    </SwiperSlide>
+                )
+                })) : (<div>-</div>) }
             </Swiper>
 
             <div id="carausel-2-columns-1-arrows" className="flex">

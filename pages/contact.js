@@ -1,9 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from "react"
 import Layout from '../components/layout/Layout';
-import TextEffect from "../components/elements/TextEffect"
-import Link from "next/link";
+import { processHighlightText } from "../hook"
 
 const Contact = () => {
+
+    const [content, setContent] = useState({})
+
+    useEffect(() => {
+        async function fetchData() {
+            const response = await fetch(`http://localhost:8000/api/contact`);
+            if (!response.ok) {
+                const message = `An error has occurred: ${response.statusText}`;
+                window.alert(message);
+                return;
+            }
+            const record = await response.json();
+            if (!record) {
+                window.alert(`Record with id not found`);
+                return;
+            }
+
+            setContent({ ...processHighlightText(record.content.title, record.content.title_hl), badge: record.content.badge }) 
+
+            return record;
+        }
+        fetchData();
+        return;
+    },[])
+
     return (
         <>
             <Layout>
@@ -12,25 +36,14 @@ const Contact = () => {
                         <div className="max-w-2xl mx-auto text-center">
                             <div className="max-w-md mb-8 mx-auto">
                                 <span className="inline-block py-1 px-3 text-xs font-semibold bg-blue-100 text-blue-600 rounded-xl wow animate__animatedanimated animate__fadeIn" data-wow-delay=".1s">
-                                    Contact Us
+                                    { content.badge }
                                 </span>
                                 <h2 className="mt-2 text-4xl font-bold font-heading wow animate__animatedanimated animate__fadeIn" data-wow-delay=".s">
-                                    We will <span className="text-blue-500">be glad</span> to hear from you!
+                                    { content.first }<span className="text-blue-500">{ content.middle }</span>{ content.last }
                                 </h2>
                             </div>
                             <div>
                                 <form>
-                                    <div className="mb-4 text-sm wow animate__animatedanimated animate__fadeIn" data-wow-delay=".5s">
-                                        <span className="mr-4 font-semibold">Departament:</span>
-                                        <label className="mr-4">
-                                            <input className="mr-1" type="radio" name="department" value="1" checked="" />
-                                            <span>Support</span>
-                                        </label>
-                                        <label>
-                                            <input className="mr-1" type="radio" name="department" value="2" />
-                                            <span>Sales</span>
-                                        </label>
-                                    </div>
                                     <div className="mb-4 wow animate__animatedanimated animate__fadeIn" data-wow-delay=".3s">
                                         <input className="w-full p-4 text-xs font-semibold leading-none bg-blueGray-50 rounded outline-none" type="text" placeholder="Subject" />
                                     </div>
@@ -50,10 +63,6 @@ const Contact = () => {
                                         </label>
                                     </div>
                                     <div className="flex justify-between items-center wow animate__animatedanimated animate__fadeIn" data-wow-delay=".3s">
-                                        <label>
-                                            <input className="mr-1" type="checkbox" name="terms" value="1" />
-                                            <span className="text-sm font-semibold">I agree to terms and conditions.</span>
-                                        </label>
                                         <button className="py-4 px-8 text-sm text-white font-semibold leading-none bg-blue-500 hover:bg-blue-700 rounded" type="submit">
                                             Submit
                                         </button>
